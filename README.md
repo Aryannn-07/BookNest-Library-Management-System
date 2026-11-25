@@ -1,79 +1,195 @@
-# BookNest — Library Management System
+# BookNest – Library Management System
 
-BookNest is a browser-based library management mini project built with Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data JPA, MySQL, HTML, CSS and Bootstrap.
+A browser-based Library Management System built with **Java 17, Spring Boot, Thymeleaf and MySQL**. BookNest helps manage books, members, book lending, returns, reservations, overdue tracking and library analytics through a responsive web interface.
+
+## Screenshots
+
+### Dashboard
+![BookNest Dashboard](Screenshots/Screenshot%20(397).png)
+
+### Application Screenshots
+
+| Screenshot | Preview |
+|---|---|
+| Screenshot 2 | ![Screenshot 398](Screenshots/Screenshot%20(398).png) |
+| Screenshot 3 | ![Screenshot 399](Screenshots/Screenshot%20(399).png) |
+| Screenshot 4 | ![Screenshot 400](Screenshots/Screenshot%20(400).png) |
+| Screenshot 5 | ![Screenshot 401](Screenshots/Screenshot%20(401).png) |
+| Screenshot 6 | ![Screenshot 402](Screenshots/Screenshot%20(402).png) |
+| Screenshot 7 | ![Screenshot 403](Screenshots/Screenshot%20(403).png) |
+| Screenshot 8 | ![Screenshot 404](Screenshots/Screenshot%20(404).png) |
+| Screenshot 9 | ![Screenshot 405](Screenshots/Screenshot%20(405).png) |
+| Screenshot 10 | ![Screenshot 406](Screenshots/Screenshot%20(406).png) |
+
+*All screenshots are stored in the `Screenshots/` directory.*
 
 ## Features
 
-- Dashboard with book-title, member, active-loan and overdue-loan counts.
-- Late fine calculation at ₹5 per day after the due date, shown on loan records and dashboard (calculated, not a payment ledger).
-- Reservation queue for unavailable titles, expected-return estimates, FIFO readiness when a copy is returned, reserved-copy issue, and cancellation.
-- Dashboard doughnut charts for most-borrowed titles and overdue versus on-time active loans.
-- Acquisition-date tracking and recent-acquisitions summary for the last 30 days.
-- Book catalogue management: create, edit, search, and delete books where allowed.
-- ISBN, title, author, category, total-copy and available-copy tracking.
-- Member registration and directory.
-- Issue available books to registered members with a due date.
-- Return issued books and update availability.
-- Loan history with all, active, overdue and returned filters.
-- Form validation, confirmation prompts, flash messages and empty states.
-- Responsive interface with consistent navigation, tables, forms, status labels and dashboard cards.
-- Custom design system in `static/css/style.css`: CSS design tokens (colour, type, radius, shadow), active-page navigation highlight, keyboard-visible focus states, reduced-motion support and print-friendly styles.
+### Dashboard and Analytics
+- Dashboard displaying total books, members, active loans and overdue loans.
+- Doughnut charts for most-borrowed titles and overdue versus on-time active loans.
+- Recent acquisitions summary covering the last 30 days.
 
-## Technology stack
+### Book Management
+- Add, edit, search and delete books where allowed.
+- Track ISBN, title, author, category and copy availability.
+- Record acquisition dates.
+
+### Member Management
+- Register library members.
+- Maintain a member directory with contact details.
+
+### Book Issue and Return
+- Issue available books to registered members.
+- Set due dates and maintain loan records.
+- Record returns and automatically update book availability.
+- View all, active, overdue and returned loans.
+
+### Reservation System
+- Allow members to reserve unavailable titles.
+- Maintain a FIFO reservation queue.
+- Estimate expected return dates.
+- Automatically mark the oldest waiting reservation as ready when a copy is returned.
+- Issue reserved copies or cancel reservations.
+
+### Late Fine Calculation
+- Calculate late fines at ₹5 per calendar day after the due date.
+- Display calculated fines on loan records and the dashboard.
+- Stop fine accumulation when an overdue book is returned.
+
+*Note: Fine calculation is implemented; payment collection and receipts are not.*
+
+### User Interface
+- Responsive layout using Bootstrap.
+- Consistent navigation, tables, forms and status indicators.
+- Form validation, confirmation prompts and flash messages.
+- Custom CSS design system with keyboard-visible focus states, reduced-motion support and print-friendly styles.
+
+## Technology Stack
 
 | Layer | Technology |
 |---|---|
-| Language | Java 17 |
-| Backend framework | Spring Boot 3.5.7, Spring MVC |
-| View layer | Thymeleaf, HTML5, CSS3, Bootstrap 5 |
-| Persistence | Spring Data JPA, Hibernate |
+| Programming Language | Java 17 |
+| Backend Framework | Spring Boot 3.5.7 |
+| Web Framework | Spring MVC |
+| Frontend | Thymeleaf, HTML5, CSS3, Bootstrap 5 |
 | Database | MySQL 8.x |
-| Build tool | Maven |
+| ORM | Hibernate |
+| Persistence | Spring Data JPA |
+| Build Tool | Maven |
+
+## Project Structure
+
+```text
+library-management-web/
+│
+├── src/
+│   └── main/
+│       ├── java/com/aryan/library/
+│       │   ├── controller/
+│       │   ├── entity/
+│       │   ├── repository/
+│       │   ├── service/
+│       │   └── LibraryManagementApplication.java
+│       │
+│       └── resources/
+│           ├── static/css/
+│           ├── templates/
+│           └── application.properties
+│
+├── Screenshots/
+├── database.sql
+├── pom.xml
+├── README.md
+└── .gitignore
+```
 
 ## Requirements
 
 - JDK 17 or later
 - Maven 3.6+
 - MySQL 8.x
-- A modern browser
+- Modern web browser
 
-## Setup and run
+## Installation and Setup
 
-1. Start MySQL.
-2. Create a database user with permission to create/use the project database, or create it manually:
+### 1. Clone the repository
 
-   ```sql
-   CREATE DATABASE library_management;
-   ```
+```bash
+git clone https://github.com/Aryannn-07/BookNest-Library-Management-System.git
+```
 
-3. Configure credentials using environment variables. Do not commit real credentials to source control.
+### 2. Navigate to the project directory
 
-   **Windows PowerShell**
-   ```powershell
-   $env:DB_USERNAME="root"
-   $env:DB_PASSWORD="your_mysql_password"
-   # Optional:
-   # $env:DB_URL="jdbc:mysql://localhost:3306/library_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
-   ```
+```bash
+cd BookNest-Library-Management-System
+```
 
-   **macOS/Linux**
-   ```bash
-   export DB_USERNAME=root
-   export DB_PASSWORD='your_mysql_password'
-   ```
+If `pom.xml` is inside a nested `library-management-web` directory, navigate into that directory before continuing.
 
-4. Open a terminal in the folder containing `pom.xml`.
-5. Run:
+### 3. Create the MySQL database
 
-   ```bash
-   mvn spring-boot:run
-   ```
+Open MySQL Workbench and execute:
 
-6. Open [http://localhost:8080](http://localhost:8080).
+```sql
+CREATE DATABASE library_management;
+```
 
-The application uses `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` environment variables when provided. Hibernate is configured with `ddl-auto=update` for this educational project.
+### 4. Configure database credentials
 
-## Main routes
+Set the following environment variables before running the application.
+
+**Windows PowerShell:**
+
+```powershell
+$env:DB_URL="jdbc:mysql://localhost:3306/library_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+$env:DB_USERNAME="root"
+$env:DB_PASSWORD="your_mysql_password"
+```
+
+**macOS/Linux:**
+
+```bash
+export DB_URL="jdbc:mysql://localhost:3306/library_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+export DB_USERNAME="root"
+export DB_PASSWORD="your_mysql_password"
+```
+
+Replace the example credentials with your own local MySQL credentials.
+
+**Important:** Never commit real database credentials to GitHub.
+
+### 5. Run the application
+
+Make sure your terminal is in the directory containing `pom.xml`.
+
+```bash
+mvn spring-boot:run
+```
+
+Alternatively, build the project:
+
+```bash
+mvn clean package
+```
+
+Then run the generated JAR:
+
+```bash
+java -jar target/library-management-web-1.0.0.jar
+```
+
+### 6. Open BookNest
+
+Visit:
+
+```text
+http://localhost:8080
+```
+
+The application uses `DB_URL`, `DB_USERNAME` and `DB_PASSWORD` environment variables when configured. Hibernate currently uses `ddl-auto=update` for this educational project.
+
+## Main Application Routes
 
 | Route | Purpose |
 |---|---|
@@ -82,66 +198,63 @@ The application uses `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` environment vari
 | `/books/new` | Add a book |
 | `/members` | Member directory |
 | `/members/new` | Register a member |
-| `/loans` | Loan history and status filters |
+| `/loans` | Loan history and filters |
 | `/loans/issue` | Issue a book |
 | `/reservations` | Reservation queue |
 | `/reservations/new` | Reserve an unavailable title |
 
-## Project structure
+## Core Workflow
 
-```text
-src/main/java/com/aryan/library/
-├── controller/   # HTTP routes and page models
-├── entity/       # JPA entities: Book, Member, BookLoan
-├── repository/   # Database access interfaces
-├── service/      # Issue/return business rules
-└── LibraryManagementApplication.java
+1. Add books and specify the number of copies.
+2. Register library members.
+3. Issue available books to members with due dates.
+4. Track active and overdue loans.
+5. Return books and update availability.
+6. Automatically process waiting reservations when copies become available.
+7. Monitor fines and borrowing analytics through the dashboard.
 
-src/main/resources/
-├── static/css/   # Shared design system (tokens, components, responsive, print)
-├── templates/    # Thymeleaf pages and fragments
-└── application.properties
-```
+## Database Model
 
-## Core workflow
-
-1. Add book records and set the number of copies.
-2. Register a member.
-3. Issue a book to that member and set a due date.
-4. The system records the loan and reduces the available-copy count.
-5. When the book is returned, the return date is recorded and availability is restored.
-6. Active and overdue loans can be reviewed in the loan history.
-
-## Database model
-
-- **Book** (`books`): ISBN, title, author, category, total copies and available copies.
-- **Member** (`members`): full name, email and optional phone.
-- **BookLoan** (`book_loans`): references one book and one member, plus issue, due and return dates.
+| Entity | Description |
+|---|---|
+| Book (`books`) | ISBN, title, author, category, total copies and available copies |
+| Member (`members`) | Full name, email and optional phone |
+| BookLoan (`book_loans`) | Book and member references, issue date, due date and return date |
 
 A book can have multiple loan records over time. A member can borrow multiple books over time. Each loan references one book and one member.
 
-## Testing checklist
+## Testing Checklist
 
-- Add and edit a book; search by title, author, ISBN or category.
-- Register a member and verify it appears in the directory.
-- Issue an available book and verify the loan record.
-- Confirm an unavailable book cannot be issued.
-- Return a book and verify status and availability.
-- Check active, overdue and returned filters.
-- Verify empty states and validation messages.
+- Add, edit and search books.
+- Register members and verify the directory.
+- Issue available books.
+- Verify unavailable books cannot be issued.
+- Return books and check availability.
+- Test active, overdue and returned loan filters.
+- Verify reservation queue ordering and cancellation.
+- Check late fine calculations.
+- Verify dashboard analytics and validation messages.
 
-## Limitations and future scope
+## Limitations and Future Scope
 
-This is an academic mini project. It does not currently include user authentication/role-based access, fine payment collection/receipts, email/SMS reminders, automated backups, or deployment configuration. Before public deployment, add authentication and authorization, CSRF/security review, stronger database migration management, automated tests, and production-ready database-fetching patterns. The current Open Session in View setting is retained for compatibility with the current Thymeleaf pages; a production-oriented version should fetch required relations explicitly or map them into DTOs.
+BookNest is an academic mini project. The current version does not include:
 
-## Security note
+- User authentication and role-based access control.
+- Fine payment collection and receipts.
+- Email or SMS notifications.
+- Automated database backups.
+- Production deployment configuration.
 
-Keep database passwords out of source control. Use environment variables or a secret manager for local and deployed environments. Do not expose the application publicly without authentication and a security review.
+Potential improvements include authentication, authorization, automated testing, database migration management, stronger security controls and production-ready database access patterns.
 
+The current Open Session in View configuration is retained for compatibility with the Thymeleaf pages. A production-oriented version should fetch required relationships explicitly or use DTOs.
 
-## Added feature notes
+## Security
 
-- **Late fines:** The application calculates a fine of ₹5 for each calendar day after the due date. Active overdue loans accrue a live estimate; returned loans stop accruing at their return date. Payment collection and fine waivers are not tracked.
-- **Reservations:** Members can reserve a title only when its available-copy count is zero. Reservations are queued by request time. When a copy is returned, the oldest waiting reservation becomes ready and that copy is held for it. Staff can issue the held copy or cancel the reservation.
-- **Dashboard analytics:** The most-borrowed chart is calculated from recorded loan history. The overdue percentage is overdue active loans divided by all active loans. Recently acquired titles are determined by acquisition date and a rolling 30-day window; existing records with no acquisition date are excluded until a date is set.
-- **Acquisition data:** The book form records an acquisition/purchase date. Existing rows may have a null date after schema update, so update historical dates if accurate acquisition reporting is needed.
+- Keep database credentials outside source control.
+- Use environment variables or a secret manager.
+- Do not expose the application publicly without authentication and a security review.
+
+---
+
+**Developed as a B.Tech Computer Science and Engineering mini project.**
