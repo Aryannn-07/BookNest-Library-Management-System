@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="topbar" class="navbar navbar-expand-lg navbar-dark app-nav">
+  <div class="container-fluid px-lg-4">
+    <a class="navbar-brand fw-bold" th:href="@{/}"><span class="brand-mark"><i class="bi bi-book-half"></i></span> <span>BookNest</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <div class="navbar-nav ms-auto gap-lg-2">
+        <a class="nav-link" th:href="@{/}"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a><a class="nav-link" th:href="@{/books}"><i class="bi bi-book"></i> Books</a><a class="nav-link" th:href="@{/members}"><i class="bi bi-people"></i> Members</a><a class="nav-link" th:href="@{/loans}"><i class="bi bi-arrow-left-right"></i> Issue / Return</a><a class="nav-link" th:href="@{/reservations}"><i class="bi bi-bookmark-check"></i> Reservations</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>document.addEventListener("DOMContentLoaded",function(){var p=location.pathname.replace(/\/$/,"")||"/";document.querySelectorAll("#mainNav .nav-link").forEach(function(a){var h=new URL(a.href).pathname.replace(/\/$/,"")||"/";if(h===p||(h!=="/"&&p.indexOf(h)===0)){a.classList.add("active");a.setAttribute("aria-current","page");}});});</script>
+<div th:fragment="alerts" class="container-fluid px-lg-4 pt-3">
+  <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert"><span th:text="${success}"></span><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+  <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert"><span th:text="${error}"></span><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+</div>
+<footer th:fragment="footer" class="footer container-fluid px-lg-4"><span><i class="bi bi-book-half"></i> BookNest · Library Management System</span><span>Built with Java 17, Spring Boot, Thymeleaf and MySQL</span></footer>
+</body></html>
